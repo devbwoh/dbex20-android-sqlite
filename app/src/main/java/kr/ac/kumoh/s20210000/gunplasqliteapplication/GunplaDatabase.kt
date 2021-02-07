@@ -61,7 +61,7 @@ abstract class GunplaDatabase : RoomDatabase() {
     }
 }
 
-class WordRepository(private val gunplaDao: GunplaDao) {
+class GunplaRepository(private val gunplaDao: GunplaDao) {
     // public 이므로 외부에서 접근 가능
     val allMechanic: Flow<List<Mechanic>> = gunplaDao.getAllMechanics()
 
