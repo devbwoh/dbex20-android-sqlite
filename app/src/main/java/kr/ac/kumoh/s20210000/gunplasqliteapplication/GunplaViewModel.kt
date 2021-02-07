@@ -15,12 +15,12 @@ class GunplaViewModel(application: Application): AndroidViewModel(application) {
         mechanic = repository.allMechanic.asLiveData()
     }
 
-    fun getMechanic() : LiveData<List<Mechanic>> {
+    fun getAllMechanic() : LiveData<List<Mechanic>> {
         return mechanic
     }
 
-    fun getSong(i: Int) = mechanic.value?.get(i)
-    fun getSize() = mechanic.value?.size
+    fun getMechanic(i: Int) = mechanic.value?.get(i)
+    fun getSize() = mechanic.value?.size ?: 0
 
     // coroutine 실행
     fun insert(mechanic: Mechanic) = viewModelScope.launch {
