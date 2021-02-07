@@ -4,6 +4,7 @@ package kr.ac.kumoh.s20210000.gunplasqliteapplication
 import android.content.Context
 import androidx.annotation.WorkerThread
 import androidx.room.*
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 
 @Entity(tableName = "mechanic")
@@ -71,4 +72,3 @@ class GunplaRepository(private val gunplaDao: GunplaDao) {
         gunplaDao.insert(mechanic)
     }
 }
-

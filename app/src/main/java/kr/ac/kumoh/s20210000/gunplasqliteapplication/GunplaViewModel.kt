@@ -1,16 +1,29 @@
 package kr.ac.kumoh.s20210000.gunplasqliteapplication
+// 본인의 package 사용할 것
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
-import androidx.lifecycle.viewModelScope
+import android.app.Application
+import androidx.lifecycle.*
 import kotlinx.coroutines.launch
 
-class GunplaViewModel(private val repository: GunplaRepository) : ViewModel() {
-    val allMechanic: LiveData<List<Mechanic>> = repository.allMechanic.asLiveData()
+class GunplaViewModel(application: Application): AndroidViewModel(application) {
+    private val mechanic: LiveData<List<Mechanic>>
+    private val repository: GunplaRepository
+
+    init {
+        val dao = GunplaDatabase.getDatabase(application).gunplaDao()
+        repository = GunplaRepository(dao)
+        mechanic = repository.allMechanic.asLiveData()
+    }
+
+    fun getMechanic() : LiveData<List<Mechanic>> {
+        return mechanic
+    }
+
+    fun getSong(i: Int) = mechanic.value?.get(i)
+    fun getSize() = mechanic.value?.size
 
     // coroutine 실행
-    fun insert(word: Mechanic) = viewModelScope.launch {
-        repository.insert(word)
+    fun insert(mechanic: Mechanic) = viewModelScope.launch {
+        repository.insert(mechanic)
     }
 }
